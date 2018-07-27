@@ -89,6 +89,12 @@ public class GetController {
         return finalSetter(model, "/by_address");
     }
 
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public String getByAddressPost(Model model) {
+        result = organizationService.getAll();
+        return finalSetter(model, "STOP");
+    }
+
     private boolean isError(MultiValueMap<String, String> incParam, Model model, String param) {
         errorList = organizationService.checkParam(incParam);
         if (incParam.get(param).get(0).isEmpty()) errorList.add("Value is emty");

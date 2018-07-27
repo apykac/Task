@@ -6,7 +6,7 @@
 </head>
 <body>
 <h2>Список организаций</h2>
-<table>
+<table border="1">
     <tr>
         <th>ID</th>
         <th>ИНН</th>
@@ -28,6 +28,8 @@
 <br/>
 
 <a href="${pageContext.request.contextPath}/main_page">на главную</a>
-<a href="${pageContext.request.contextPath}/method/get_organization${backPage}">назад</a>
+<c:if test="${backPage != 'STOP'}">
+    <a href="${pageContext.request.contextPath}/method/get_organization${backPage}">назад</a>
+</c:if>
 </body>
 </html>

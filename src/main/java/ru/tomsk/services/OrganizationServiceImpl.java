@@ -84,4 +84,9 @@ public class OrganizationServiceImpl implements OrganizationService {
         if ((address == null) || address.isEmpty()) return new ArrayList<>();
         return organizationDao.getByAddress(address);
     }
+
+    @Override
+    public List<Organization> getAll() {
+        return organizationDao.getAll();
+    }
 }

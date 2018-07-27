@@ -16,4 +16,6 @@ public interface OrganizationDao {
     List<Organization> getByName(String name);
 
     List<Organization> getByAddress(String address);
+
+    List<Organization> getAll();
 }

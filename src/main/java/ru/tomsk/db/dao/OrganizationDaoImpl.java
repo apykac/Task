@@ -6,10 +6,7 @@ import org.springframework.stereotype.Component;
 import ru.tomsk.db.connection.ConnectionManager;
 import ru.tomsk.pojo.Organization;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -138,6 +135,24 @@ public class OrganizationDaoImpl implements OrganizationDao {
                     "SELECT * FROM organizations WHERE address LIKE ?");
             preparedStatement.setString(1, "%" + address + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Organization organization = new Organization();
+                OrganizationHelper.setter(organization, resultSet);
+                result.add(organization);
+            }
+        } catch (SQLException e) {
+            logger.error(sqlexception + e.getMessage());
+            return new ArrayList<>();
+        }
+        return result;
+    }
+
+    @Override
+    public List<Organization> getAll() {
+        List<Organization> result = new ArrayList<>();
+        try (Connection connection = connectionManager.getConnection()) {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM organizations");
             while (resultSet.next()) {
                 Organization organization = new Organization();
                 OrganizationHelper.setter(organization, resultSet);

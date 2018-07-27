@@ -19,4 +19,6 @@ public interface OrganizationService {
     List<Organization> getByName(String name);
 
     List<Organization> getByAddress(String address);
+
+    List<Organization> getAll();
 }
